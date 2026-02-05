@@ -936,11 +936,11 @@
             margin-bottom: 25px;
         }
         
-        .form-group {
+        .contact-form-group {
             margin: 20px 0;
         }
         
-        .form-group label {
+        .contact-form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
@@ -948,8 +948,8 @@
             font-size: 16px;
         }
         
-        .form-group input,
-        .form-group textarea {
+        .contact-form-group input,
+        .contact-form-group textarea {
             width: 100%;
             padding: 15px;
             border: 2px solid #ddd;
@@ -959,25 +959,25 @@
             box-sizing: border-box;
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .contact-form-group input:focus,
+        .contact-form-group textarea:focus {
             border-color: #4b0082;
             outline: none;
         }
         
-        .form-group textarea {
+        .contact-form-group textarea {
             min-height: 150px;
             resize: vertical;
             font-family: Arial, sans-serif;
         }
         
-        .form-actions {
+        .contact-form-actions {
             display: flex;
             gap: 15px;
             margin-top: 25px;
         }
         
-        .form-actions button {
+        .contact-form-actions button {
             flex: 1;
             padding: 15px;
             border: none;
@@ -992,43 +992,43 @@
             gap: 8px;
         }
         
-        .send-btn {
+        .contact-send-btn {
             background: #28a745;
             color: white;
         }
         
-        .send-btn:hover:not(:disabled) {
+        .contact-send-btn:hover:not(:disabled) {
             background: #218838;
             transform: translateY(-2px);
         }
         
-        .cancel-btn {
+        .contact-cancel-btn {
             background: #6c757d;
             color: white;
         }
         
-        .cancel-btn:hover {
+        .contact-cancel-btn:hover {
             background: #5a6268;
             transform: translateY(-2px);
         }
         
-        .send-btn:disabled {
+        .contact-send-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
         
-        .form-error {
+        .contact-form-error {
             color: #dc3545;
             font-size: 14px;
             margin-top: 5px;
             display: none;
         }
         
-        .form-error.show {
+        .contact-form-error.show {
             display: block;
         }
         
-        .form-success {
+        .contact-form-success {
             background: #d4edda;
             color: #155724;
             padding: 15px;
@@ -1039,7 +1039,7 @@
             text-align: center;
         }
         
-        .form-success.show {
+        .contact-form-success.show {
             display: block;
             animation: fadeIn 0.5s ease;
         }
@@ -1164,7 +1164,7 @@
                 margin: 10px;
             }
             
-            .form-actions {
+            .contact-form-actions {
                 flex-direction: column;
             }
             
@@ -1376,7 +1376,7 @@
             <button class="notification-btn-bottom" onclick="toggleNotificationPanel()">
                 <span>🔔</span> <span data-translate="notifications">Notifications</span>
             </button>
-            <button class="contact-btn-bottom" onclick="showContactForm()">
+            <button class="contact-btn-bottom" onclick="openContactModal()">
                 <span>📧</span> <span data-translate="contact_us_user">Twandikire</span>
             </button>
         </div>
@@ -1390,19 +1390,19 @@
             </h3>
             
             <form id="contactForm">
-                <div class="form-group">
-                    <label for="userEmail" data-translate="your_email">Email Yawe:</label>
-                    <input type="email" id="userEmail" data-translate="email_placeholder" placeholder="shyiramo email yawe..." required>
-                    <div id="emailError" class="form-error" data-translate="email_required">Shyiramo email nterinze!</div>
+                <div class="contact-form-group">
+                    <label for="contactEmail" data-translate="your_email">Email Yawe:</label>
+                    <input type="email" id="contactEmail" placeholder="shyiramo email yawe..." required>
+                    <div id="contactEmailError" class="contact-form-error"></div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="userMessage" data-translate="your_message">Ubutumwa:</label>
-                    <textarea id="userMessage" data-translate="message_placeholder" placeholder="Andika ubutumwa wawe... (min: 10 imibare)" required minlength="10"></textarea>
-                    <div id="messageError" class="form-error" data-translate="message_required">Ubutumwa bukenewe (min: 10 imibare)!</div>
+                <div class="contact-form-group">
+                    <label for="contactMessage" data-translate="your_message">Ubutumwa:</label>
+                    <textarea id="contactMessage" placeholder="Andika ubutumwa wawe... (min: 10 imibare)" required minlength="10"></textarea>
+                    <div id="contactMessageError" class="contact-form-error"></div>
                 </div>
                 
-                <div id="formSuccess" class="form-success">
+                <div id="contactSuccess" class="contact-form-success">
                     <strong data-translate="message_sent">✅ Ubutumwa bwawe bwoherejwe!</strong>
                     <p data-translate="we_will_reply">Ntugire ikibazo, turabasubiza vuba.</p>
                 </div>
@@ -1414,11 +1414,11 @@
                     <p>3. <span data-translate="message_types">Ubutumwa buri rusange: amakuru, ibibazo, amanota, etc.</span></p>
                 </div>
                 
-                <div class="form-actions">
-                    <button type="submit" class="send-btn" id="sendButton">
+                <div class="contact-form-actions">
+                    <button type="submit" class="contact-send-btn" id="sendContactBtn">
                         <span>📤</span> <span data-translate="send_message">Ohereza Ubutumwa</span>
                     </button>
-                    <button type="button" class="cancel-btn" onclick="hideContactForm()">
+                    <button type="button" class="contact-cancel-btn" onclick="closeContactModal()">
                         <span>✖️</span> <span data-translate="cancel">Hagarika</span>
                     </button>
                 </div>
@@ -1936,6 +1936,8 @@
             registerServiceWorker();
             setupInstallPrompt();
             updateOnlineStatus();
+            
+            // Setup contact form
             setupContactForm();
             
             songUpdateInterval = setInterval(checkForSongUpdates, 10000);
@@ -1948,6 +1950,223 @@
             
             // Load user notifications
             loadUserNotifications();
+        }
+        
+        // ===== CONTACT FORM FUNCTIONS =====
+        
+        // Open contact modal
+        function openContactModal() {
+            console.log('Opening contact modal...');
+            
+            // Pre-fill email if user is logged in
+            if (currentUser && !currentUser.isGuest) {
+                document.getElementById('contactEmail').value = currentUser.email;
+                validateContactEmail();
+            }
+            
+            // Show the modal
+            document.getElementById('contactModal').classList.add('active');
+            
+            // Reset form state
+            document.getElementById('contactSuccess').classList.remove('show');
+            document.getElementById('contactEmailError').classList.remove('show');
+            document.getElementById('contactMessageError').classList.remove('show');
+            
+            // Focus on message field
+            setTimeout(() => {
+                document.getElementById('contactMessage').focus();
+            }, 100);
+        }
+        
+        // Close contact modal
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.remove('active');
+            document.getElementById('contactForm').reset();
+        }
+        
+        // Setup contact form
+        function setupContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            const contactEmail = document.getElementById('contactEmail');
+            const contactMessage = document.getElementById('contactMessage');
+            const sendContactBtn = document.getElementById('sendContactBtn');
+            
+            // Real-time validation
+            contactEmail.addEventListener('input', validateContactEmail);
+            contactMessage.addEventListener('input', validateContactMessage);
+            
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Contact form submitted');
+                
+                if (validateContactEmail() && validateContactMessage()) {
+                    sendContactMessage();
+                }
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('contactModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeContactModal();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && document.getElementById('contactModal').classList.contains('active')) {
+                    closeContactModal();
+                }
+            });
+        }
+        
+        // Validate email
+        function validateContactEmail() {
+            const email = document.getElementById('contactEmail').value.trim();
+            const emailError = document.getElementById('contactEmailError');
+            const sendBtn = document.getElementById('sendContactBtn');
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email) {
+                emailError.textContent = LanguageManager.getTranslation('email_required');
+                emailError.classList.add('show');
+                sendBtn.disabled = true;
+                return false;
+            }
+            
+            if (!emailRegex.test(email)) {
+                emailError.textContent = LanguageManager.getTranslation('email_required');
+                emailError.classList.add('show');
+                sendBtn.disabled = true;
+                return false;
+            }
+            
+            emailError.classList.remove('show');
+            updateContactSendButton();
+            return true;
+        }
+        
+        // Validate message
+        function validateContactMessage() {
+            const message = document.getElementById('contactMessage').value.trim();
+            const messageError = document.getElementById('contactMessageError');
+            const sendBtn = document.getElementById('sendContactBtn');
+            
+            if (!message) {
+                messageError.textContent = LanguageManager.getTranslation('message_required');
+                messageError.classList.add('show');
+                sendBtn.disabled = true;
+                return false;
+            }
+            
+            if (message.length < 10) {
+                messageError.textContent = LanguageManager.getTranslation('message_required');
+                messageError.classList.add('show');
+                sendBtn.disabled = true;
+                return false;
+            }
+            
+            messageError.classList.remove('show');
+            updateContactSendButton();
+            return true;
+        }
+        
+        // Update send button state
+        function updateContactSendButton() {
+            const emailValid = validateContactEmail();
+            const messageValid = validateContactMessage();
+            const sendBtn = document.getElementById('sendContactBtn');
+            
+            sendBtn.disabled = !(emailValid && messageValid);
+        }
+        
+        // Send contact message
+        function sendContactMessage() {
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            const sendBtn = document.getElementById('sendContactBtn');
+            const successMessage = document.getElementById('contactSuccess');
+            
+            // Disable button and show loading
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span>⏳</span> Iri gukora...';
+            
+            // Simulate API call/processing
+            setTimeout(() => {
+                // Save to localStorage
+                saveContactMessageToLocalStorage(email, message);
+                
+                // Show success message
+                successMessage.classList.add('show');
+                
+                // Add user notification
+                addUserNotification({
+                    id: 'notif-' + Date.now(),
+                    type: 'contact',
+                    title: '📧 Ubutumwa bwawe bwoherejwe',
+                    message: 'Turabasubiza vuba',
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                
+                // Send notification to admin
+                addAdminNotification({
+                    id: 'admin-notif-' + Date.now(),
+                    type: 'contact',
+                    title: '📧 Ubutumwa bushya',
+                    message: `${email}: ${message.substring(0, 50)}...`,
+                    userEmail: email,
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    document.getElementById('contactForm').reset();
+                    successMessage.classList.remove('show');
+                    sendBtn.disabled = false;
+                    sendBtn.innerHTML = `<span>📤</span> ${LanguageManager.getTranslation('send_message')}`;
+                    closeContactModal();
+                    
+                    // Show confirmation alert
+                    alert(`${LanguageManager.getTranslation('message_sent')}\n\n${LanguageManager.getTranslation('we_will_reply')}\nEmail: ${email}`);
+                }, 2000);
+                
+            }, 1500);
+        }
+        
+        // Save contact message to localStorage
+        function saveContactMessageToLocalStorage(email, message) {
+            try {
+                // Get existing contacts
+                let contacts = JSON.parse(localStorage.getItem('userContacts') || '[]');
+                
+                // Add new contact
+                const newContact = {
+                    email: email,
+                    message: message,
+                    date: new Date().toLocaleString('rw-RW'),
+                    read: false,
+                    timestamp: new Date().toISOString()
+                };
+                
+                contacts.unshift(newContact);
+                
+                // Keep only last 100 contacts
+                if (contacts.length > 100) {
+                    contacts = contacts.slice(0, 100);
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('userContacts', JSON.stringify(contacts));
+                
+                console.log('Contact message saved to localStorage:', newContact);
+                return true;
+            } catch (error) {
+                console.error('Error saving contact message:', error);
+                return false;
+            }
         }
         
         // ===== NOTIFICATION SYSTEM =====
@@ -2618,165 +2837,6 @@
             element.textContent = message;
             element.classList.add('show');
             return false;
-        }
-        
-        // ===== CONTACT FORM FUNCTIONS =====
-        function setupContactForm() {
-            const form = document.getElementById('contactForm');
-            const emailInput = document.getElementById('userEmail');
-            const messageInput = document.getElementById('userMessage');
-            const sendButton = document.getElementById('sendButton');
-            
-            emailInput.addEventListener('input', validateContactEmail);
-            messageInput.addEventListener('input', validateContactMessage);
-            
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateContactEmail() && validateContactMessage()) {
-                    sendContactMessage();
-                }
-            });
-        }
-        
-        function validateContactEmail() {
-            const email = document.getElementById('userEmail').value.trim();
-            const emailError = document.getElementById('emailError');
-            const sendButton = document.getElementById('sendButton');
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (!email) {
-                emailError.textContent = 'Email irikenewe!';
-                emailError.classList.add('show');
-                sendButton.disabled = true;
-                return false;
-            }
-            
-            if (!emailRegex.test(email)) {
-                emailError.textContent = 'Shyiramo email nterinze!';
-                emailError.classList.add('show');
-                sendButton.disabled = true;
-                return false;
-            }
-            
-            emailError.classList.remove('show');
-            updateContactSendButton();
-            return true;
-        }
-        
-        function validateContactMessage() {
-            const message = document.getElementById('userMessage').value.trim();
-            const messageError = document.getElementById('messageError');
-            const sendButton = document.getElementById('sendButton');
-            
-            if (!message) {
-                messageError.textContent = 'Ubutumwa bukenewe!';
-                messageError.classList.add('show');
-                sendButton.disabled = true;
-                return false;
-            }
-            
-            if (message.length < 10) {
-                messageError.textContent = 'Ubutumwa burakenewe (min: 10 imibare)!';
-                messageError.classList.add('show');
-                sendButton.disabled = true;
-                return false;
-            }
-            
-            messageError.classList.remove('show');
-            updateContactSendButton();
-            return true;
-        }
-        
-        function updateContactSendButton() {
-            const emailValid = validateContactEmail();
-            const messageValid = validateContactMessage();
-            const sendButton = document.getElementById('sendButton');
-            
-            sendButton.disabled = !(emailValid && messageValid);
-        }
-        
-        function sendContactMessage() {
-            const email = document.getElementById('userEmail').value.trim();
-            const message = document.getElementById('userMessage').value.trim();
-            const sendButton = document.getElementById('sendButton');
-            const successMessage = document.getElementById('formSuccess');
-            
-            sendButton.disabled = true;
-            sendButton.innerHTML = `<span>⏳</span> Iri gukora...`;
-            
-            setTimeout(() => {
-                const contacts = JSON.parse(localStorage.getItem('userContacts') || '[]');
-                contacts.unshift({
-                    email: email,
-                    message: message,
-                    date: new Date().toLocaleString('rw-RW'),
-                    read: false
-                });
-                
-                if (contacts.length > 100) {
-                    contacts.length = 100;
-                }
-                
-                localStorage.setItem('userContacts', JSON.stringify(contacts));
-                
-                successMessage.classList.add('show');
-                
-                // Add notification
-                addUserNotification({
-                    id: 'notif-' + Date.now(),
-                    type: 'contact',
-                    title: '📧 Ubutumwa bwawe bwoherejwe',
-                    message: 'Turabasubiza vuba',
-                    timestamp: new Date().toISOString(),
-                    read: false
-                });
-                
-                // Send notification to admin
-                const adminNotification = {
-                    id: 'admin-notif-' + Date.now(),
-                    type: 'contact',
-                    title: '📧 Ubutumwa bushya',
-                    message: `${email}: ${message.substring(0, 50)}...`,
-                    userEmail: email,
-                    timestamp: new Date().toISOString(),
-                    read: false
-                };
-                
-                addAdminNotification(adminNotification);
-                
-                setTimeout(() => {
-                    document.getElementById('contactForm').reset();
-                    successMessage.classList.remove('show');
-                    sendButton.disabled = false;
-                    sendButton.innerHTML = `<span>📤</span> ${LanguageManager.getTranslation('send_message')}`;
-                    hideContactForm();
-                    
-                    alert(`Ubutumwa bwawe bwoherejwe!\n\nTurabasubiza vuba.\nEmail: ${email}`);
-                }, 2000);
-                
-            }, 1500);
-        }
-        
-        // ===== SHOW/HIDE CONTACT FORM =====
-        function showContactForm() {
-            console.log('showContactForm called');
-            
-            if (currentUser && !currentUser.isGuest) {
-                document.getElementById('userEmail').value = currentUser.email;
-                validateContactEmail();
-            }
-            
-            document.getElementById('contactModal').classList.add('active');
-            document.getElementById('userMessage').focus();
-        }
-        
-        function hideContactForm() {
-            document.getElementById('contactModal').classList.remove('active');
-            document.getElementById('formSuccess').classList.remove('show');
-            document.getElementById('emailError').classList.remove('show');
-            document.getElementById('messageError').classList.remove('show');
         }
         
         // ===== PWA FUNCTIONS =====
